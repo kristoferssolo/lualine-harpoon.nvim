@@ -1,9 +1,9 @@
 # lualine-harpoon.nvim
 
-![[assets/img/2025-05-21_12-16-25.webp]]
+![](assets/img/2025-05-21_12-16-25.webp)
 
-A tiny [Lualine](https://github.com/nvim-lualine/lualine.nvim) component for  
-[ThePrimeagen/harpoon2](https://github.com/ThePrimeagen/harpoon).  
+A tiny [Lualine](https://github.com/nvim-lualine/lualine.nvim) component for
+[ThePrimeagen/harpoon2](https://github.com/ThePrimeagen/harpoon).
 Displays your current Harpoon mark as `[x/y]` in your statusline.
 
 ## Requirements
@@ -50,26 +50,9 @@ require("lualine").setup({
 
 When you have Harpoon marks, you’ll see an indicator like `[2/5]` in your statusline.
 
-## Configuration
+## Default Options
 
-You can override plugin-wide defaults **before** calling `lualine.setup`:
-
-```lua
--- default configs
-require("lualine-harpoon").setup({
-  symbol = {
-    open = "[",
-    close = "]",
-    separator = "/",
-    unknown = "?",
-  },
-  icon = "󰀱",
-})
-```
-
-### Per-component Overrides
-
-You can also pass options directly in your Lualine sections:
+You can pass options directly in your Lualine sections:
 
 ```lua
 require("lualine").setup({
@@ -77,7 +60,13 @@ require("lualine").setup({
     lualine_c = {
       {
         "harpoon",
-        symbol = { open = "<", close = ">" },
+        symbol = {
+          open = "[",
+          close = "]",
+          separator = "/",
+          unknown = "?",
+        },
+        icon = "󰀱",
       },
     },
   },
