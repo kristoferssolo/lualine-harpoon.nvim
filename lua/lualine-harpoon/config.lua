@@ -5,6 +5,7 @@ local M = {
 		separator = "/",
 		unknown = "?",
 	},
+	icon = "󰀱",
 }
 
 return M
