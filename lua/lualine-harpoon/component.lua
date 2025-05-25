@@ -4,7 +4,7 @@ local cfg = require("lualine-harpoon.config")
 local req = require("lualine_require")
 local Component = req.require("lualine.component")
 
----@class LualineHarpoonComponent : lualine.Component
+---@class LualineHarpoonComponent
 ---@field cache LualineHarpoonCache
 ---@field options LualineHarpoonConfig
 local M = Component:extend()
@@ -15,25 +15,6 @@ local M = Component:extend()
 ---@field last_buf string?
 ---@field last_changedtick integer?
 ---@field last_status_hash string?
-
----@class LualineHarpoonConfig
----@field symbol LualineHarpoonSymbols
----@field icon string
----@field show_when_empty boolean
----@field show_icon boolean
----@field format function?
----@field colors LualineHarpoonColors
----@field cache_timeout integer
-
----@class LualineHarpoonSymbols
----@field open string
----@field close string
----@field separator string
----@field unknown string
-
----@class LualineHarpoonColors
----@field active string?
----@field inactive string?
 
 ---@param opts table?
 function M:init(opts)
@@ -119,12 +100,21 @@ function M:update_status()
 	local st = status.get_status()
 	local result = ""
 
+	-- Handle custom format function
 	if type(self.options.format) == "function" then
 		result = self.options.format(st.current, st.total)
 	elseif st.total > 0 then
+		-- Default formatting when we have marks
 		local s = self.options.symbol
 		local n = st.current and tostring(st.current) or s.unknown
 		result = string.format("%s%s%s%d%s", s.open, n, s.separator, st.total, s.close)
+	elseif self.options.show_when_empty then
+		-- Show something when no marks exist, but only if show_when_empty is true
+		local s = self.options.symbol
+		if type(self.options.empty_text) == "string" then
+			result = self.options.empty_text
+		end
+		result = string.format("%s0%s0%s", s.open, s.separator, s.close)
 	end
 
 	self:update_cache(result)

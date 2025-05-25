@@ -2,9 +2,8 @@
 ---@field symbol LualineHarpoonSymbols
 ---@field icon string
 ---@field show_when_empty boolean
----@field show_icon boolean
 ---@field format function?
----@field colors LualineHarpoonColors
+---@field empty_text string?
 ---@field cache_timeout integer
 
 ---@class LualineHarpoonSymbols
@@ -12,10 +11,6 @@
 ---@field close string
 ---@field separator string
 ---@field unknown string
-
----@class LualineHarpoonColors
----@field active string?
----@field inactive string?
 
 ---@type LualineHarpoonConfig
 local M = {
@@ -27,12 +22,8 @@ local M = {
 	},
 	icon = "󰀱",
 	show_when_empty = false,
-	show_icon = true,
 	format = nil,
-	colors = {
-		active = nil,
-		inactive = nil,
-	},
+	empty_text = nil,
 	cache_timeout = 100,
 }
 
